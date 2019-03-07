@@ -5,8 +5,8 @@
              x:Class="Sales.App">
     <Application.Resources>
         <ResourceDictionary>
-            <!--Localtor-->
-            <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+            <!--Locator-->
+            <infra:InstanceLocator x:Key="Locator" ></infra:InstanceLocator>
         </ResourceDictionary>
 
     </Application.Resources>

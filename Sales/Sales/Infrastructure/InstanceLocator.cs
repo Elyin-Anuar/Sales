@@ -1,6 +1,6 @@
 ﻿namespace Sales.Infrastructure
 {
-    using Sales.ViewModels;
+    using ViewModels;
 
     public class InstanceLocator
     {
