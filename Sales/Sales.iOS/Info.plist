@@ -34,5 +34,14 @@
     <string>Sales</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+	
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>es-NI</string>
+		<string>eu</string>
+	</array>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>es-NI</string> 
+
 </dict>
 </plist>

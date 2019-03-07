@@ -5,8 +5,14 @@
              x:Class="Sales.App">
     <Application.Resources>
         <ResourceDictionary>
+            
             <!--Locator-->
             <infra:InstanceLocator x:Key="Locator" ></infra:InstanceLocator>
+
+            <!--Parameters-->
+            <x:String x:Key="UrlAPI">https://salesapi20190306034232.azurewebsites.net</x:String>
+            <x:String x:Key="UrlPrefix">/api</x:String>
+            <x:String x:Key="UrlProductsController">/Products</x:String>
         </ResourceDictionary>
 
     </Application.Resources>
