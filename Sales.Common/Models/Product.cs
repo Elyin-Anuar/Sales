@@ -32,7 +32,7 @@
             {
                 if (string.IsNullOrEmpty(this.ImagePath))
                 {
-                    return null;
+                    return "images";
                 }
                 return $"https://salebackend20190306033310.azurewebsites.net/{this.ImagePath.Substring(1)}";
             }
