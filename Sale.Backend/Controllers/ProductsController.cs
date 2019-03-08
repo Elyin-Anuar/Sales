@@ -1,11 +1,14 @@
 ﻿namespace Sale.Backend.Controllers
 {
     using System.Data.Entity;
-    using System.Threading.Tasks;
+    using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Sale.Backend.Models;
     using Sales.Common.Models;
+
+
     public class ProductsController : Controller
     {
         private LocalDataContext db = new LocalDataContext();
@@ -13,7 +16,7 @@
         // GET: Products
         public async Task<ActionResult> Index()
         {
-            return View(await db.Products.ToListAsync());
+            return View(await db.Products.OrderBy(p =>p.Description).ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -38,11 +41,9 @@
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProductId,Description,Price,IsAvailable,PublishOn")] Product product)
+        public async Task<ActionResult> Create([Bind(Include = "ProductId,Description,Remarks,ImagePath,Price,IsAvailable,PublishOn")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -70,11 +71,9 @@
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProductId,Description,Price,IsAvailable,PublishOn")] Product product)
+        public async Task<ActionResult> Edit([Bind(Include = "ProductId,Description,Remarks,ImagePath,Price,IsAvailable,PublishOn")] Product product)
         {
             if (ModelState.IsValid)
             {
