@@ -7,6 +7,8 @@
     using System.Linq;
     using System.Windows.Input;
     using Xamarin.Forms;
+    using System;
+    using global::Sales.Views;
 
     public class ProductItemViewModel : Product
     {
@@ -16,11 +18,27 @@
 
         #region Constructores
         public ProductItemViewModel()
-        {
+        { 
             this.apiService = new ApiService();
         }
         #endregion
+
         #region Comandos
+
+        public ICommand EditProductCommand
+        {
+            get
+            {
+                return new RelayCommand(EditProduct);
+            }
+        }
+
+        private async void EditProduct()
+        {
+            MainViewModel.GetInstance().EditProduct = new EditProductViewModel(this);
+            await Application.Current.MainPage.Navigation.PushAsync(new EditProductPage());
+        }
+
         public ICommand DeleteProductCommand
         {
             get

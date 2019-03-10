@@ -21,6 +21,7 @@ namespace Sales.ViewModels
         #endregion
 
         #region Propiedades
+        public List<Product> MyProdct { get; set; }
         public ObservableCollection<ProductItemViewModel> Products
         {
             get { return this.products; }
@@ -79,8 +80,14 @@ namespace Sales.ViewModels
                 return;
             }
 
-            var list = (List<Product>)response.Result;
-            var mylist = list.Select(p => new ProductItemViewModel
+            this.MyProdct = (List<Product>)response.Result;
+            this.RefreshList();
+            this.IsRefreshing = false;
+        }
+
+        public void RefreshList()
+        {
+            var mylistProductItemViewModel = MyProdct.Select(p => new ProductItemViewModel
             {
                 Description = p.Description,
                 ImageArray = p.ImageArray,
@@ -92,8 +99,8 @@ namespace Sales.ViewModels
                 Remarks = p.Remarks,
             });
 
-            this.Products = new ObservableCollection<ProductItemViewModel>(mylist);
-            this.IsRefreshing = false;
+            this.Products = new ObservableCollection<ProductItemViewModel>
+                (mylistProductItemViewModel.OrderBy(p => p.Description));
         }
         #endregion
 

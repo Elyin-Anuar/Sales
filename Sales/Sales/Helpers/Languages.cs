@@ -116,5 +116,16 @@
             get { return Resource.Confirm; }
         }
         #endregion
+
+        #region Editar Productos
+        public static string EditProduct
+        {
+            get { return Resource.EditProduct; }
+        }
+        public static string IsAvailable
+        {
+            get { return Resource.IsAvailable; }
+        } 
+        #endregion
     }
 }
