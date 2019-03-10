@@ -18,7 +18,7 @@
         // GET: Products
         public async Task<ActionResult> Index()
         {
-            return View(await db.Products.OrderBy(p =>p.Description).ToListAsync());
+            return View(await this.db.Products.OrderBy(p =>p.Description).ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -28,7 +28,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var product = await db.Products.FindAsync(id);
+            var product = await this.db.Products.FindAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -60,8 +60,8 @@
 
                 var product = this.ToProduct(view, pic); 
 
-                db.Products.Add(product);
-                await db.SaveChangesAsync();
+                this.db.Products.Add(product);
+                await this.db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -89,7 +89,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var product = await db.Products.FindAsync(id);
+            var product = await this.db.Products.FindAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -129,8 +129,8 @@
                     pic = $"{folder}/{pic}";
                 }
                 var product = this.ToProduct(view, pic);
-                db.Entry(product).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                this.db.Entry(product).State = EntityState.Modified;
+                await this.db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(view);
@@ -143,7 +143,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var product = await db.Products.FindAsync(id);
+            var product = await this.db.Products.FindAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -156,9 +156,9 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            var product = await db.Products.FindAsync(id);
-            db.Products.Remove(product);
-            await db.SaveChangesAsync();
+            var product = await this.db.Products.FindAsync(id);
+            this.db.Products.Remove(product);
+            await this.db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -166,7 +166,7 @@
         {
             if (disposing)
             {
-                db.Dispose();
+                this.db.Dispose();
             }
             base.Dispose(disposing);
         }

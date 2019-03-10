@@ -24,7 +24,7 @@
 
         private async void GotoAddProduct()
         {
-            this.AddProduct= new AddProductViewModel();
+            this.AddProduct = new AddProductViewModel();
             await Application.Current.MainPage.Navigation.PushAsync(new AddProductPage());
         }
     }

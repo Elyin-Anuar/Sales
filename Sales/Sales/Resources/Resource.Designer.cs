@@ -79,6 +79,24 @@ namespace Sales.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Touch the image to change it.
+        /// </summary>
+        public static string ChangeImage {
+            get {
+                return ResourceManager.GetString("ChangeImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please Turn On yor internet setting.
         /// </summary>
         public static string ConectarseWifi {
@@ -88,11 +106,65 @@ namespace Sales.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to delete.
+        /// </summary>
+        public static string DeleteConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter a description.
+        /// </summary>
+        public static string DescriptionError {
+            get {
+                return ResourceManager.GetString("DescriptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Description.
         /// </summary>
         public static string DescriptionPlaceholder {
             get {
                 return ResourceManager.GetString("DescriptionPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -102,6 +174,42 @@ namespace Sales.Resources {
         public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From gallery.
+        /// </summary>
+        public static string FromGallery {
+            get {
+                return ResourceManager.GetString("FromGallery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Where do you take the picture?.
+        /// </summary>
+        public static string ImageSource {
+            get {
+                return ResourceManager.GetString("ImageSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take a new picture.
+        /// </summary>
+        public static string NewPicture {
+            get {
+                return ResourceManager.GetString("NewPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -124,11 +232,56 @@ namespace Sales.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter a price greater than zero.
+        /// </summary>
+        public static string PriceError {
+            get {
+                return ResourceManager.GetString("PriceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Product Price.
+        /// </summary>
+        public static string PricePlaceholder {
+            get {
+                return ResourceManager.GetString("PricePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Products.
         /// </summary>
         public static string Products {
             get {
                 return ResourceManager.GetString("Products", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remarks.
+        /// </summary>
+        public static string Remarks {
+            get {
+                return ResourceManager.GetString("Remarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
