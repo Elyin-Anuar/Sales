@@ -86,7 +86,7 @@
                     HeightRequest="46"
                     Command="{Binding SaveCommand}"
                     IsEnabled="{Binding IsEnabled}"
-                    BackgroundColor="#A4A4A4"
+                    BackgroundColor="Green"
                     TextColor="White"
                     Text="{i18n:Translate Save}">
                 </Button>

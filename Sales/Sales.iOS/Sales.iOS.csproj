@@ -173,4 +173,16 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_action_add_circle.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_chevron_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\facebook_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sales.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\twitter_logo.png" />
+  </ItemGroup>
 </Project>

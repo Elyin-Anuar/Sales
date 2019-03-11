@@ -14,6 +14,14 @@
         <StackLayout
             BindingContext="{Binding Products}"
             Padding="5">
+            
+            <SearchBar
+                HeightRequest="50"
+                Placeholder="{i18n:Translate Search}"
+                SearchCommand="{Binding SearchCommand}"
+                Text="{Binding Filter}">
+            </SearchBar>
+            
             <ListView
                 HasUnevenRows="True"
                 IsRefreshing="{Binding IsRefreshing}"
@@ -31,10 +39,18 @@
                             </ViewCell.ContextActions>
 
                             <Grid>
+                                
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding EditProductCommand}">
+                                    </TapGestureRecognizer>
+                                    
+                                </Grid.GestureRecognizers>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"> </ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Image
                                     Grid.Column="0"
@@ -63,6 +79,12 @@
                                     Text="{Binding Price, StringFormat='{0:C2}'}"
                                     VerticalOptions="Center">
                                 </Label>
+
+                                <Image
+                                    Grid.Column="4"
+                                    VerticalOptions="Center"
+                                    Source="ic_chevron_right">
+                                </Image>
                             </Grid>
                         </ViewCell> 
                     </DataTemplate>

@@ -7,6 +7,7 @@
     using global::Sales.ViewModels.Sales.ViewModels;
     using Plugin.Media;
     using Plugin.Media.Abstractions;
+    using System;
     using System.Linq;
     using System.Windows.Input;
     using Xamarin.Forms;
@@ -56,7 +57,67 @@
         }
 
         #endregion
+
         #region Commands
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                return new RelayCommand(Delete);
+            }
+        }
+
+        private async void Delete()
+        {
+            var answer = await Application.Current.MainPage.DisplayAlert
+                  (Languages.Confirm,
+                  Languages.DeleteConfirmation,
+                  Languages.Yes,
+                  Languages.No);
+
+            if (!answer)
+            {
+                return;
+            }
+
+            this.IsEnabled = true;
+            this.IsEnabled = false;
+
+            var connection = await this.apiServices.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                this.IsEnabled = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, connection.Message, Languages.Accept);
+                return;
+            }
+          
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var prefix = Application.Current.Resources["UrlPrefix"].ToString();
+            var controller = Application.Current.Resources["UrlProductsController"].ToString();
+            var response = await
+                this.apiServices.Delete
+                (url, prefix, controller, this.product.ProductId);
+            if (!response.IsSuccess)
+            {
+                this.IsEnabled = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
+                return;
+            }
+            var productsViewModel = ProductsViewModel.GetInstance();
+            var deletedProduct = productsViewModel.MyProdct.Where(p => p.ProductId == this.product.ProductId).FirstOrDefault();
+            if (deletedProduct != null)
+            {
+                productsViewModel.MyProdct.Remove(deletedProduct);
+                productsViewModel.RefreshList();
+
+                this.IsEnabled = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.Navigation.PopAsync();
+            }
+        }
+
         public ICommand ChangeImageCommand
         {
             get

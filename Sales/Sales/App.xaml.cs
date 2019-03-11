@@ -5,13 +5,14 @@ using Xamarin.Forms.Xaml;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Sales
 {
+    using Sales.ViewModels;
     using Views;
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
-
+            MainViewModel.GetInstance().Products = new ProductsViewModel();
             MainPage = new NavigationPage(new ProductsPage());
         }
 

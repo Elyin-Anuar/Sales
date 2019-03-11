@@ -93,16 +93,31 @@
                     IsToggled="{Binding Product.IsAvailable}">
                 </Switch>
 
-                <Button
+                <StackLayout
+                    Orientation="Horizontal">
+                    <Button
                     BorderRadius="23"
                     HeightRequest="46"
+                    HorizontalOptions="FillAndExpand"
                     Command="{Binding SaveCommand}"
                     IsEnabled="{Binding IsEnabled}"
-                    BackgroundColor="#A4A4A4"
+                    BackgroundColor="Green"
                     TextColor="White"
                     Text="{i18n:Translate Save}">
-                </Button>
+                    </Button>
 
+                    <Button
+                    BorderRadius="23"
+                    HeightRequest="46"
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding DeleteCommand}"
+                    IsEnabled="{Binding IsEnabled}"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    Text="{i18n:Translate Delete}">
+                    </Button>
+                </StackLayout>
+                
             </StackLayout>
         </ScrollView>
 
