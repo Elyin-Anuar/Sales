@@ -178,7 +178,7 @@ namespace Sales.ViewModels
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
             var response = await
                 this.apiServices.Post<Product>
-                (url, prefix, controller, product);
+                (url, prefix, controller, product, Settings.TokenType, Settings.AccessToken);
 
             if (!response.IsSuccess)
             {
@@ -192,13 +192,14 @@ namespace Sales.ViewModels
             }
             var newProduct = (Product)response.Result;
             var productsViewModel = ProductsViewModel.GetInstance();
-            productsViewModel.MyProdct.Add(newProduct);
+            productsViewModel.MyProdcts.Add(newProduct);
             productsViewModel.RefreshList();
 
             this.isRunning = false;
             this.IsEnabled = true;
 
-            await Application.Current.MainPage.Navigation.PopAsync();
+            await App.Navigator.PopAsync();
+
         }
         #endregion
     }

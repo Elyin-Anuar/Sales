@@ -1,17 +1,20 @@
-﻿using GalaSoft.MvvmLight.Command;
-using Sales.Helpers;
-using Sales.ViewModels.Sales.ViewModels;
-using System;
-using System.Windows.Input;
-using Xamarin.Forms;
-
-namespace Sales.ViewModels
+﻿namespace Sales.ViewModels
 {
+    using GalaSoft.MvvmLight.Command;
+    using Helpers;
+    using Services;
+    using Sales.ViewModels;
+    using System;
+    using System.Windows.Input;
+    using Xamarin.Forms;
+    using global::Sales.Views;
+
     public class LoginViewModel : BaseViewModel
     {
         #region Atributos
         private bool isRunning;
         private bool isEnabled;
+        private ApiService apiService;
         #endregion
 
         #region Propiedades
@@ -33,13 +36,28 @@ namespace Sales.ViewModels
         #region Constructores
         public LoginViewModel()
         {
+            this.apiService = new ApiService();
             this.isEnabled = true;
-            this.IsEnabled = true;
+            this.IsRemembered = true;
         }
-
         #endregion
 
         #region Comandos
+
+        public ICommand RegisterCommand
+        {
+            get
+            {
+                return new RelayCommand(Register);
+            }
+        }
+
+        private async void Register()
+        {
+            MainViewModel.GetInstance().Register = new RegisterViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+        }
+
         public ICommand LoginCommand
         {
             get
@@ -67,6 +85,42 @@ namespace Sales.ViewModels
                     Languages.Accept);
                 return;
             }
+
+            this.isRunning = true;
+            this.IsEnabled = false;
+
+            var connection = await this.apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                this.isRunning = false;
+                this.IsEnabled = true;
+
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, connection.Message, Languages.Accept);
+                return;
+            }
+
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var token = await this.apiService.GetToken
+               (url, this.Email, this.Password);
+
+            if (token == null || string.IsNullOrEmpty(token.AccessToken))
+            {
+                this.isRunning = false;
+                this.IsEnabled = true;
+
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, Languages.SomethingWrong, Languages.Accept);
+                return;
+            }
+
+            Settings.TokenType = token.TokenType;
+            Settings.AccessToken = token.AccessToken;
+            Settings.IsRemembered = this.IsRemembered;
+  
+            MainViewModel.GetInstance().Products = new ProductsViewModel();
+            Application.Current.MainPage = new MasterPage();
+
+            this.isRunning = false;
+            this.IsEnabled = true;
         }
         #endregion
     }

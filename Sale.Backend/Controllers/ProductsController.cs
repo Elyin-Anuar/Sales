@@ -11,6 +11,7 @@
     using Sales.Common.Models;
     using Models;
 
+    [Authorize]
     public class ProductsController : Controller
     {
         private LocalDataContext db = new LocalDataContext();

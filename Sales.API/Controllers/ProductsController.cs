@@ -12,6 +12,8 @@
     using Sales.API.Helpers;
     using Sales.Common.Models;
     using Sales.Domain.Models;
+
+    [Authorize]
     public class ProductsController : ApiController
     {
         private DataContext db = new DataContext();

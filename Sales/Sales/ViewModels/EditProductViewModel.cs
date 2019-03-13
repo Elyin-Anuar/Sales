@@ -97,7 +97,7 @@
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
             var response = await
                 this.apiServices.Delete
-                (url, prefix, controller, this.product.ProductId);
+                (url, prefix, controller, this.product.ProductId, Settings.TokenType, Settings.AccessToken);
             if (!response.IsSuccess)
             {
                 this.IsEnabled = false;
@@ -106,16 +106,16 @@
                 return;
             }
             var productsViewModel = ProductsViewModel.GetInstance();
-            var deletedProduct = productsViewModel.MyProdct.Where(p => p.ProductId == this.product.ProductId).FirstOrDefault();
+            var deletedProduct = productsViewModel.MyProdcts.Where(p => p.ProductId == this.product.ProductId).FirstOrDefault();
             if (deletedProduct != null)
             {
-                productsViewModel.MyProdct.Remove(deletedProduct);
-                productsViewModel.RefreshList();
-
-                this.IsEnabled = false;
-                this.IsEnabled = true;
-                await Application.Current.MainPage.Navigation.PopAsync();
+                productsViewModel.MyProdcts.Remove(deletedProduct);
             }
+            productsViewModel.RefreshList();
+
+            this.IsEnabled = false;
+            this.IsEnabled = true;
+            await App.Navigator.PopAsync();
         }
 
         public ICommand ChangeImageCommand
@@ -223,7 +223,7 @@
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
             var response = await
                 this.apiServices.Put
-                (url, prefix, controller, this.Product, this.Product.ProductId);
+                (url, prefix, controller, this.Product, this.Product.ProductId, Settings.TokenType, Settings.AccessToken);
 
             if (!response.IsSuccess)
             {
@@ -238,20 +238,20 @@
             var newProduct = (Product)response.Result;
             var productsViewModel = ProductsViewModel.GetInstance();
 
-            var oldProduct = productsViewModel.MyProdct.Where
+            var oldProduct = productsViewModel.MyProdcts.Where
                 (p => p.ProductId == this.Product.ProductId).FirstOrDefault();
             if (oldProduct !=null)
             {
-                productsViewModel.MyProdct.Remove(oldProduct);
+                productsViewModel.MyProdcts.Remove(oldProduct);
             }
 
-            productsViewModel.MyProdct.Add(newProduct);
+            productsViewModel.MyProdcts.Add(newProduct);
             productsViewModel.RefreshList();
 
             this.isRunning = false;
             this.IsEnabled = true;
 
-            await Application.Current.MainPage.Navigation.PopAsync();
+            await App.Navigator.PopAsync();
         }
         #endregion
 
