@@ -147,6 +147,7 @@
                     Languages.Accept);
                 return;
             }
+
             this.IsRunning = true;
             this.IsEnabled = false;
 
@@ -181,7 +182,11 @@
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
             var controller = Application.Current.Resources["UrlUsersController"].ToString();
-            var response = await this.apiService.Post(url, prefix, controller, userRequest);
+            var response = await this.apiService.Post(
+                url, 
+                prefix,
+                controller,
+                userRequest);
 
             if (!response.IsSuccess)
             {

@@ -7,16 +7,51 @@
     using System.Collections.ObjectModel;
     using System;
     using global::Sales.Helpers;
+    using global::Sales.Common.Models;
 
     public class MainViewModel
     {
         #region Propiedades
+        public MyUserASP UserASP { get; set; }
         public LoginViewModel Login { get; set; }
         public RegisterViewModel Register { get; set; }
         public EditProductViewModel EditProduct { get; set; }
         public ProductsViewModel Products { get; set; }
         public AddProductViewModel AddProduct { get; set; }
         public ObservableCollection<MenuItemViewModel> Menu { get; set; }
+        public string UserFullName
+        {
+            get
+            {
+                if (this.UserASP != null && this.UserASP.Claims != null && this.UserASP.Claims.Count > 1)
+                {
+                    return $"{this.UserASP.Claims[0].ClaimValue} {this.UserASP.Claims[1].ClaimValue}";
+                }
+
+                return null;
+            }
+        }
+
+        public string UserImageFullPath
+        {
+            get
+            {
+                foreach (var claim in this.UserASP.Claims)
+                {
+                    if (claim.ClaimType == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/uri")
+                    {
+                        if (claim.ClaimValue.StartsWith("~"))
+                        {
+                            return $"https://salesapi20190306034232.azurewebsites.net{claim.ClaimValue.Substring(1)}";
+                        }
+
+                        return claim.ClaimValue;
+                    }
+                }
+
+                return null;
+            }
+        }
         #endregion
 
         #region Contrustores

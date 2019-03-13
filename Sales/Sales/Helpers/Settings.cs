@@ -19,11 +19,24 @@ namespace Sales.Helpers
         #region Setting Constants
         private const string tokenType = "TokenType";
         private const string accessToken = "AccessToken";
+        private const string userASP = "UserASP";
         private const string isRemembered = "IsRemembered";
         private static readonly string stringDefault = string.Empty;
         private static readonly bool booleanDefault = false;
         #endregion
 
+        #region Propiedades
+        public static string UserASP
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(userASP, stringDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(userASP, value);
+            }
+        }
         public static string TokenType
         {
             get
@@ -35,7 +48,6 @@ namespace Sales.Helpers
                 AppSettings.AddOrUpdateValue(tokenType, value);
             }
         }
-
         public static string AccessToken
         {
             get
@@ -47,7 +59,6 @@ namespace Sales.Helpers
                 AppSettings.AddOrUpdateValue(accessToken, value);
             }
         }
-
         public static bool IsRemembered
         {
             get
@@ -59,5 +70,6 @@ namespace Sales.Helpers
                 AppSettings.AddOrUpdateValue(isRemembered, value);
             }
         }
+        #endregion
     }
 }
