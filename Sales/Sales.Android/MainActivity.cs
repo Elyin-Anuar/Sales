@@ -12,7 +12,7 @@
         Label = "Sales", 
         Icon = "@drawable/Unan_Managua_Icon", 
         Theme = "@style/MainTheme", 
-        MainLauncher = true, 
+        MainLauncher = false, 
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
