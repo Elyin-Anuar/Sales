@@ -6,7 +6,7 @@
              x:Class="Sales.Views.MenuPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="{i18n:Translate Menu}"
-             BackgroundColor="Gray">
+             BackgroundColor="SlateGray">
     <ContentPage.Content>
         <StackLayout 
             Padding="5">
@@ -21,7 +21,7 @@
                 FontSize="Large"
                 HorizontalOptions="Center"
                 Text="{Binding UserFullName}"
-                TextColor="White">
+                TextColor="Black">
             </Label>
             <ListView
                 ItemsSource="{Binding Menu}"
@@ -47,7 +47,7 @@
                                 <Label
                                     Grid.Column="1"
                                     VerticalOptions="Center"
-                                    TextColor="White"
+                                    TextColor="Black"
                                     Text="{Binding Title}">
                                 </Label>
                             </Grid>
