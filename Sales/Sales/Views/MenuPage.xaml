@@ -11,7 +11,7 @@
         <StackLayout 
             Padding="5">
             <Image
-                Source="sales">
+                Source="{Binding UserImageFullPath}">
             </Image>
             <Label
                 FontAttributes="Bold"

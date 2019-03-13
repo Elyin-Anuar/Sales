@@ -31,22 +31,13 @@
                 return null;
             }
         }
-
         public string UserImageFullPath
         {
             get
             {
-                foreach (var claim in this.UserASP.Claims)
+                if (this.UserASP != null && this.UserASP.Claims != null && this.UserASP.Claims.Count > 3)
                 {
-                    if (claim.ClaimType == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/uri")
-                    {
-                        if (claim.ClaimValue.StartsWith("~"))
-                        {
-                            return $"https://salesapi20190306034232.azurewebsites.net{claim.ClaimValue.Substring(1)}";
-                        }
-
-                        return claim.ClaimValue;
-                    }
+                    return $"https://salesapi20190306034232.azurewebsites.net{this.UserASP.Claims[3].ClaimValue.Substring(1)}";
                 }
 
                 return null;
