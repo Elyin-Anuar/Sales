@@ -10,9 +10,12 @@
     <ContentPage.Content>
         <StackLayout 
             Padding="5">
-            <Image
-                Source="{Binding UserImageFullPath}">
-            </Image>
+            <controls:CircleImage  
+                Source="{Binding UserImageFullPath}"
+                Aspect="AspectFill"
+                WidthRequest="200"
+                HeightRequest="200">
+            </controls:CircleImage>
             <Label
                 FontAttributes="Bold"
                 FontSize="Large"

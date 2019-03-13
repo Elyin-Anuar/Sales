@@ -4,12 +4,13 @@
     using Android.Content.PM;
     using Android.OS;
     using Android.Runtime;
+    using ImageCircle.Forms.Plugin.Droid;
     using Plugin.CurrentActivity;
     using Plugin.Permissions;
 
     [Activity(
         Label = "Sales", 
-        Icon = "@mipmap/icon", 
+        Icon = "@drawable/Unan_Managua_Icon", 
         Theme = "@style/MainTheme", 
         MainLauncher = true, 
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -22,7 +23,7 @@
 
             base.OnCreate(savedInstanceState);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
-
+            ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
