@@ -35,9 +35,17 @@
         {
             get
             {
-                if (this.UserASP != null && this.UserASP.Claims != null && this.UserASP.Claims.Count > 2)
+                foreach (var claim in this.UserASP.Claims)
                 {
-                    return $"https://salesapi20190306034232.azurewebsites.net{this.UserASP.Claims[2].ClaimValue.Substring(1)}";
+                    if (claim.ClaimType == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/uri")
+                    {
+                        if (claim.ClaimValue.StartsWith("~"))
+                        {
+                            return $"https://salesapi20190306034232.azurewebsites.net{claim.ClaimValue.Substring(1)}";
+                        }
+
+                        return claim.ClaimValue;
+                    }
                 }
 
                 return null;

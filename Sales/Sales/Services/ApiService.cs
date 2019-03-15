@@ -426,5 +426,82 @@
             }
         }
         #endregion
+
+        #region Redes Sociales
+        public async Task<FacebookResponse> GetFacebook(string accessToken)
+        {
+            var requestUrl = "https://graph.facebook.com/v2.8/me/?fields=name," +
+                "picture.width(999),cover,age_range,devices,email,gender," +
+                "is_verified,birthday,languages,work,website,religion," +
+                "location,locale,link,first_name,last_name," +
+                "hometown&access_token=" + accessToken;
+            var httpClient = new HttpClient();
+            var userJson = await httpClient.GetStringAsync(requestUrl);
+            var facebookResponse =
+                JsonConvert.DeserializeObject<FacebookResponse>(userJson);
+            return facebookResponse;
+        }
+        public async Task<TokenResponse> LoginTwitter(string urlBase, string servicePrefix, string controller, TwitterResponse profile)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(profile);
+                var content = new StringContent(
+                    request,
+                    Encoding.UTF8,
+                    "application/json");
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(urlBase);
+                var url = $"{servicePrefix}{controller}";
+                var response = await client.PostAsync(url, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var tokenResponse = await GetToken(
+                    urlBase,
+                    profile.IdStr,
+                    profile.IdStr);
+                return tokenResponse;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public async Task<TokenResponse> LoginFacebook(string urlBase, string servicePrefix, string controller, FacebookResponse profile)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(profile);
+                var content = new StringContent(
+                    request,
+                    Encoding.UTF8,
+                    "application/json");
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(urlBase);
+                var url = $"{servicePrefix}{controller}";
+                var response = await client.PostAsync(url, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var tokenResponse = await GetToken(
+                    urlBase,
+                    profile.Id,
+                    profile.Id);
+                return tokenResponse;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }
+        

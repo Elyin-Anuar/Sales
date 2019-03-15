@@ -63,28 +63,28 @@
             }
         }
 
-        //[HttpPost]
-        //[Route("LoginFacebook")]
-        //public IHttpActionResult LoginFacebook(FacebookResponse profile)
-        //{
-        //    var user = UsersHelper.GetUserASP(profile.Id);
-        //    if (user != null)
-        //    {
-        //        return Ok(true); // TODO: Pending update the user with new facebook data
-        //    }
+        [HttpPost]
+        [Route("LoginFacebook")]
+        public IHttpActionResult LoginFacebook(FacebookResponse profile)
+        {
+            var user = UsersHelper.GetUserASP(profile.Id);
+            if (user != null)
+            {
+                return Ok(true); // TODO: Pending update the user with new facebook data
+            }
 
-        //    var userRequest = new UserRequest
-        //    {
-        //        EMail = profile.Id,
-        //        FirstName = profile.FirstName,
-        //        ImagePath = profile.Picture.Data.Url,
-        //        LastName = profile.LastName,
-        //        Password = profile.Id,
-        //    };
+            var userRequest = new UserRequest
+            {
+                EMail = profile.Id,
+                FirstName = profile.FirstName,
+                ImagePath = profile.Picture.Data.Url,
+                LastName = profile.LastName,
+                Password = profile.Id,
+            };
 
-        //    var answer = UsersHelper.CreateUserASP(userRequest);
-        //    return Ok(answer);
-        //}
+            var answer = UsersHelper.CreateUserASP(userRequest);
+            return Ok(answer);
+        }
 
         //[HttpPost]
         //[Route("LoginTwitter")]
@@ -161,7 +161,6 @@
         //    var answer = UsersHelper.CreateUserASP(userRequest);
         //    return Ok(answer);
         //}
-
 
     }
 }
