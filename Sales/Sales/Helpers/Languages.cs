@@ -12,7 +12,7 @@
             Resource.Culture = ci;
             DependencyService.Get<ILocalize>().SetLocale(ci);
         }
-        
+
         #region Lista de products
         public static string Accept
         {
@@ -132,7 +132,7 @@
         public static string Search
         {
             get { return Resource.Search; }
-        } 
+        }
         #endregion
 
         #region Login
@@ -295,7 +295,29 @@
         {
             get { return Resource.RegisterConfirmation; }
         }
+        #endregion
 
+        #region Categorias
+
+        public static string Categories
+        {
+            get { return Resource.Categories; }
+        }
+
+        public static string Category
+        {
+            get { return Resource.Category; }
+        }
+
+        public static string CategoryPlaceholder
+        {
+            get { return Resource.CategoryPlaceholder; }
+        }
+
+        public static string CategoryError
+        {
+            get { return Resource.CategoryError; }
+        }
         #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Sales.Common.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -8,6 +9,8 @@
     {
         [Key]
         public int ProductId { get; set; }
+        public int CategoryId { get; set; } /*Key*/
+
         [Required]
         [StringLength(50)]
         public string Description { get; set; }
@@ -27,6 +30,13 @@
         [DataType(DataType.Date)]
         public DateTime PublishOn { get; set; }
 
+        [Required]
+        [StringLength(128)]
+        public string UserId { get; set; } /*Key ASP.Net User*/
+
+        [JsonIgnore]
+        public virtual Category Category { get; set; }
+
         [NotMapped]
         public byte[] ImageArray { get; set; }
 
@@ -38,7 +48,7 @@
                 {
                     return "images";
                 }
-              return $"https://salesapi20190306034232.azurewebsites.net/{this.ImagePath.Substring(1)}";
+              return $"https://salesapi20190306034232.azurewebsites.net{this.ImagePath.Substring(1)}";
             }
         }
         public override string ToString()
