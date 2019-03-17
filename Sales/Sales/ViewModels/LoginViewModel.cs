@@ -128,7 +128,7 @@
                 Settings.UserASP = JsonConvert.SerializeObject(userASP);
             }
 
-            MainViewModel.GetInstance().Products = new ProductsViewModel();
+            MainViewModel.GetInstance().Categories = new CategoriesViewModel();
             Application.Current.MainPage = new MasterPage();
 
             this.isRunning = false;
