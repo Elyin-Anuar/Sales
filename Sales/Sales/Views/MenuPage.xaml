@@ -24,7 +24,6 @@
                 TextColor="Black">
             </Label>
             <ListView
-                BackgroundColor="Transparent"
                 ItemsSource="{Binding Menu}"
                 SeparatorVisibility="None"
                 HasUnevenRows="True">

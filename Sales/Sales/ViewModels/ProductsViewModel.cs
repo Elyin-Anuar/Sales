@@ -44,12 +44,18 @@ namespace Sales.ViewModels
             get { return this.isRefreshing; }
             set { this.SetValue(ref this.isRefreshing, value); }
         }
+        public Category Category
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructores
-        public ProductsViewModel()
+        public ProductsViewModel(Category category)
         {
             instance = this;
+            this.Category = category;
             this.apiService = new ApiService();
             this.dataService = new DataService();
             this.LoadProducts();
@@ -58,12 +64,9 @@ namespace Sales.ViewModels
 
         #region Singleton
         private static ProductsViewModel instance;
+
         public static ProductsViewModel GetInstance()
         {
-            if (instance == null)
-            {
-                return new ProductsViewModel();
-            }
             return instance;
         }
         #endregion
@@ -74,30 +77,19 @@ namespace Sales.ViewModels
             this.IsRefreshing = true;
 
             var connection = await this.apiService.CheckConnection();
-            if (connection.IsSuccess)
-            {
-                var answer = await this.LoadProductsFromAPI();
-                if (answer)
-                {
-                    this.SaveProductsToDB();
-                }
-            }
-            else
-            {
-                await this.LoadProductsFromDB();
-            }
-
-            if (this.MyProdcts == null || this.MyProdcts.Count == 0)
+            if (!connection.IsSuccess)
             {
                 this.IsRefreshing = false;
-                await Application.Current.MainPage.DisplayAlert(
-                    Languages.Error,
-                    Languages.NoProductsMessage,
-                    Languages.Accept);
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, connection.Message, Languages.Accept);
                 return;
             }
 
-            this.RefreshList();
+            var answer = await this.LoadProductsFromAPI();
+            if (answer)
+            {
+                this.RefreshList();
+            }
+
             this.IsRefreshing = false;
         }
 
@@ -117,18 +109,15 @@ namespace Sales.ViewModels
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
-            var response = await
-                this.apiService.GetList<Product>
-                (url, prefix, controller, Settings.TokenType, Settings.AccessToken);
+            var response = await this.apiService.GetList<Product>(url, prefix, controller, this.Category.CategoryId, Settings.TokenType, Settings.AccessToken);
             if (!response.IsSuccess)
             {
-                 return false;
+                return false;
             }
 
             this.MyProdcts = (List<Product>)response.Result;
             return true;
         }
-
         public void RefreshList()
         {
             if (string.IsNullOrEmpty(this.Filter))
