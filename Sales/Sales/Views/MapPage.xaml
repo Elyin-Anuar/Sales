@@ -14,7 +14,8 @@
             </maps:Map>
             <Slider
                 x:Name="MySlider"
-                Value="0.8">
+                Value="0.8"
+                ValueChanged="Handle_ValueChanged">
             </Slider>
         </StackLayout>
     </ContentPage.Content>
