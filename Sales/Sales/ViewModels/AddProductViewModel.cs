@@ -6,6 +6,10 @@ using Sales.Helpers;
 using Sales.Services;
 using Sales.ViewModels.Sales.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -19,9 +23,23 @@ namespace Sales.ViewModels
         private ApiService apiServices;
         private bool isRunning;
         private bool isEnabled;
+        private ObservableCollection<Category> categories;
+        private Category category;
         #endregion
 
         #region Propiedades
+        public List<Category> MyCategories{ get; set; }
+        public Category Category
+        {
+            get { return this.category; }
+            set { this.SetValue(ref this.category, value); }
+        }
+        public ObservableCollection<Category> Categories
+        {
+            get { return this.categories; }
+            set { this.SetValue(ref this.categories, value); }
+        }
+
         public string Description { get; set; }
         public string Price { get; set; }
         public string Remarks { get; set; }
@@ -50,9 +68,55 @@ namespace Sales.ViewModels
             this.apiServices = new ApiService();
             this.isEnabled = true;
             this.ImageSource = "images";
+            this.LoadCategories();
         }
         #endregion
 
+        #region Methods
+        private async void LoadCategories()
+        {
+            this.IsRunning = true;
+            this.IsEnabled = false;
+
+            var connection = await this.apiServices.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, connection.Message, Languages.Accept);
+                return;
+            }
+
+            var answer = await this.LoadCategoriesFromAPI();
+            if (answer)
+            {
+                this.RefreshList();
+            }
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
+        }
+
+        private void RefreshList()
+        {
+            this.Categories = new ObservableCollection<Category>(this.MyCategories.OrderBy(c => c.Description));
+        }
+
+        private async Task<bool> LoadCategoriesFromAPI()
+        {
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var prefix = Application.Current.Resources["UrlPrefix"].ToString();
+            var controller = Application.Current.Resources["UrlCategoriesController"].ToString();
+            var response = await this.apiServices.GetList<Category>(url, prefix, controller, Settings.TokenType, Settings.AccessToken);
+            if (!response.IsSuccess)
+            {
+                return false;
+            }
+
+            this.MyCategories = (List<Category>)response.Result;
+            return true;
+        }
+        #endregion
         #region Commands
 
         public ICommand ChangeImageCommand
@@ -135,7 +199,6 @@ namespace Sales.ViewModels
             }
 
             var price = decimal.Parse(this.Price);
-
             if (price < 0)
             {
                 await Application.Current.MainPage.DisplayAlert(
@@ -144,6 +207,16 @@ namespace Sales.ViewModels
                     Languages.Accept);
                 return;
             }
+
+            if (this.Category == null)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.CategoryError,
+                    Languages.Accept);
+                return;
+            }
+
             this.IsRunning = true;
             this.IsEnabled = false;
 
@@ -171,6 +244,8 @@ namespace Sales.ViewModels
                 Price = price,
                 Remarks = this.Remarks,
                 ImageArray = imageArray,
+                CategoryId = this.Category.CategoryId,
+                UserId = MainViewModel.GetInstance().UserASP.Id,
             };
              
             var url = Application.Current.Resources["UrlAPI"].ToString();

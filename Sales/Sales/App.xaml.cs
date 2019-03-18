@@ -20,7 +20,6 @@ namespace Sales
         {
             InitializeComponent();
 
-
             var mainViewModel = MainViewModel.GetInstance();
 
             if (Settings.IsRemembered)
