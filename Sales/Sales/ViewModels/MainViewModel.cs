@@ -70,7 +70,7 @@
             this.Menu.Add(new MenuItemViewModel
             {
                 Icon = "ic_perm_device_information",
-                PageName = "AbautPage",
+                PageName = "AboutPage",
                 Title = Languages.About,
             });
 

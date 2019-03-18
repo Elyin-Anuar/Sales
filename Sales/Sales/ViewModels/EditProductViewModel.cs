@@ -122,7 +122,6 @@
         }
         #endregion
 
-
         #region Commands
         public ICommand DeleteCommand
         {
@@ -328,6 +327,7 @@
             this.IsEnabled = true;
 
             await App.Navigator.PopAsync();
+            this.RefreshList();
         }
         #endregion
 

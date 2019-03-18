@@ -34,6 +34,9 @@
         [StringLength(128)]
         public string UserId { get; set; } /*Key ASP.Net User*/
 
+        public double Latitud { get; set; } /*Mapa*/
+        public double Longitud { get; set; }
+
         [JsonIgnore]
         public virtual Category Category { get; set; }
 
